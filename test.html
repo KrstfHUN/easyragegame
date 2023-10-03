@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #game-container {
+      width: auto;
+      height: 710px;
+      background-color: #ccc;
+      position: relative;
+    }
+    #player {
+      width: 20px;
+      height: 20px;
+      background-color: blue;
+      position: absolute;
+    }
+    .obstacle {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      position: absolute;
+    }
+    #finish {
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      border: 2px solid green;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <h1>Moving Obstacle Game</h1>
+  <p>Use W, A, S, D to navigate the maze. Reach the green square to win!</p>
+  <div id="game-container">
+    <div id="player"></div>
+    <!-- Moving Obstacles -->
+    <div class="obstacle" id="obstacle1" style="left: 100px; top: 100px;"></div>
+    <div class="obstacle" id="obstacle2" style="left: 200px; top: 200px;"></div>
+    <div class="obstacle" id="obstacle3" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle4" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle5" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle6" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle7" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle8" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle9" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle10" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle11" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle12" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle13" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle14" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle15" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle16" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle17" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle18" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle19" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle20" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle21" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle22" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle23" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle24" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle25" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle26" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle27" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle28" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle29" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle30" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle31" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle32" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle33" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle34" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle35" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle36" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle37" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle38" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle39" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle40" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle41" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle42" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle43" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle44" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle45" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle46" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle47" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle48" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle49" style="left: 300px; top: 300px;"></div>
+    <div class="obstacle" id="obstacle50" style="left: 300px; top: 300px;"></div>
+    <div id="finish" style="left: 350px; top: 350px;"></div>
+  </div>
+
+  <script>
+    const player = document.getElementById("player");
+    const finish = document.getElementById("finish");
+    const gameContainer = document.getElementById("game-container");
+
+    // Initialize moving obstacles
+    const obstacles = [
+      { element: document.getElementById("obstacle1"), x: 300, y: 300, speedX: -1, speedY: 5 },
+      { element: document.getElementById("obstacle2"), x: 340, y: 231, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle3"), x: 200, y: 450, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle4"), x: 350, y: 123, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle5"), x: 100, y: 333, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle6"), x: 150, y: 300, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle7"), x: 250, y: 280, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle8"), x: 370, y: 310, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle9"), x: 190, y: 393, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle10"), x: 720, y: 598, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle11"), x: 764, y: 290, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle12"), x: 939, y: 555, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle13"), x: 100, y: 100, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle14"), x: 765, y: 123, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle15"), x: 987, y: 187, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle16"), x: 545, y: 341, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle17"), x: 763, y: 566, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle18"), x: 586, y: 120, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle19"), x: 356, y: 444, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle20"), x: 698, y: 333, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle21"), x: 130, y: 222, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle22"), x: 498, y: 211, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle23"), x: 898, y: 257, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle24"), x: 433, y: 321, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle25"), x: 982, y: 111, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle26"), x: 1222, y: 546, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle27"), x: 1111, y: 342, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle28"), x: 235, y: 143, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle29"), x: 456, y: 256, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle30"), x: 389, y: 367, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle31"), x: 459, y: 4, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle32"), x: 459, y: 379, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle33"), x: 933, y: 45, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle34"), x: 454, y: 132, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle35"), x: 330, y: 206, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle36"), x: 731, y: 433, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle37"), x: 284, y: 290, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle38"), x: 780, y: 290, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle39"), x: 1010, y: 397, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle40"), x: 1241, y: 551, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle41"), x: 709, y: 211, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle42"), x: 408, y: 433, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle43"), x: 1210, y: 9, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle44"), x: 793, y: 496, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle45"), x: 244, y: 86, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle46"), x: 617, y: 122, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle47"), x: 1214, y: 129, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle48"), x: 922, y: 372, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle49"), x: 337, y: 509, speedX: -5, speedY: 5 },
+      { element: document.getElementById("obstacle50"), x: 1121, y: 367, speedX: -5, speedY: 5 },
+    ];
+
+    let playerX = 10;
+    let playerY = 10;
+    let finishX = 1420;
+    let finishY = 680;
+
+    player.style.left = playerX + "px";
+    player.style.top = playerY + "px";
+    finish.style.left = finishX + "px";
+    finish.style.top = finishY + "px";
+
+    document.addEventListener("keydown", movePlayer);
+
+    function movePlayer(event) {
+      const step = 10;
+      switch (event.key) {
+        case "w":
+          playerY -= step;
+          break;
+        case "s":
+          playerY += step;
+          break;
+        case "a":
+          playerX -= step;
+          break;
+        case "d":
+          playerX += step;
+          break;
+      }
+      player.style.left = playerX + "px";
+      player.style.top = playerY + "px";
+
+      // Check if the player touches an obstacle
+      for (const obstacle of obstacles) {
+        if (
+          playerX + 20 > obstacle.x &&
+          playerX < obstacle.x + obstacle.element.offsetWidth &&
+          playerY + 20 > obstacle.y &&
+          playerY < obstacle.y + obstacle.element.offsetHeight
+        ) {
+          alert("Oops! You touched an obstacle. Restarting the game.");
+          resetGame();
+          return;
+        }
+      }
+
+      // Check if the player reaches the finish line
+      if (
+        playerX >= finishX &&
+        playerX <= finishX + 20 &&
+        playerY >= finishY &&
+        playerY <= finishY + 20
+      ) {
+        alert("Congratulations! You won the game.");
+        resetGame();
+      }
+    }
+
+    function resetGame() {
+      playerX = 10;
+      playerY = 10;
+      player.style.left = playerX + "px";
+      player.style.top = playerY + "px";
+    }
+
+    // Move and bounce obstacles
+    function moveObstacles() {
+      for (const obstacle of obstacles) {
+        obstacle.x += obstacle.speedX;
+        obstacle.y += obstacle.speedY;
+
+        if (obstacle.x < 0 || obstacle.x + obstacle.element.offsetWidth > gameContainer.offsetWidth) {
+          obstacle.speedX *= -1;
+        }
+
+        if (obstacle.y < 0 || obstacle.y + obstacle.element.offsetHeight > gameContainer.offsetHeight) {
+          obstacle.speedY *= -1;
+        }
+
+        obstacle.element.style.left = obstacle.x + "px";
+        obstacle.element.style.top = obstacle.y + "px";
+      }
+
+      requestAnimationFrame(moveObstacles);
+    }
+
+    moveObstacles();
+  </script>
+</body>
+</html>
